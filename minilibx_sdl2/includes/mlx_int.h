@@ -133,6 +133,10 @@ typedef struct	s_sdl_var
 	void		*loop_param;
 }				t_sdl_var;
 
+/*
+** I should implement that with SDL_Surface instead.. 
+*/
+
 typedef struct	s_mlx_img
 {
 	uint32_t		*array;

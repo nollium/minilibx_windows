@@ -21,6 +21,10 @@ void    *mlx_init()
 	return (mlx);
 }
 
+/*
+** I should implement that with SDL_Surface instead.. 
+*/
+
 void    *mlx_new_image(t_sdl_var *mlx_ptr, int width, int height)
 {
 	t_mlx_img   *img;
