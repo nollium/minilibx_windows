@@ -5,7 +5,7 @@ This port is based on the X11 based minilibx for linux of 42Paris school [https:
 ## THIS PROJECT IS VERY INCOMPLETE  AND PROBABLY BROKEN.
 I don't currently think that I will completely finish it, my current goal is to make a mlx port behaving in the same way that X11 mlx does with code written for the X11 mlx that only uses basic mlx features like keyboard events (like my mandelbrot viewer [https://github.com/Dirty-No/mandelbrot_viewer](https://github.com/Dirty-No/mandelbrot_viewer))
 
-Events are not currently implemented, as it's implementation is fundamentally based on X11, but like macOS ports, we can't use X11, making it the hardest and most boring part to port.
+Events are not currently implemented, as it's implementation is fundamentally based on X11, but like macOS ports, we can't use X11, making it the hardest and most boring part to port. (but not THAT much)
 
 Fonctions currently implemented  :
 
