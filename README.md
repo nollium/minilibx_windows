@@ -1,3 +1,4 @@
+
 # (WORK IN PROGRESS) SDL2 based minilibx port for windows
 This port is based on the X11 based minilibx for linux of 42Paris school [https://github.com/42Paris/minilibx-linux/](https://github.com/42Paris/minilibx-linux/)
 
@@ -17,5 +18,18 @@ Fonctions currently implemented  :
     int  mlx_loop_hook (void  *mlx_ptr, int (*funct_ptr)(), void  *param);
     int  mlx_loop (void  *mlx_ptr);
 
+## INSTALLATION
+You will need Mingw tools (x86_64-w64-mingw32-gcc.exe and mingw32-make.exe)
 
-Feel free to contribute to the project by making issues, pull request, or by contacting me directly.
+Make in the project's root directory will compile the lib and a test executable
+
+Lib path is `minilibx_sdl2/libmlx.a
+`
+
+You will need to place SDL2.dll next to your executable.
+
+You'll need to compile with the following links :
+ `-L"$(MLX_DIRECTORY)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid`
+
+
+Feel free to contribute to the project by making issues, pull request, or by contacting me directly, any improvements or ideas are much welcome.
