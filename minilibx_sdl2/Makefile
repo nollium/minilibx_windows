@@ -12,10 +12,21 @@ SDL_INCLUDE_DIR = $(SDL_DIR)/include/SDL2
 
 INCLUDES_DIR = ./includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_INCLUDE_DIR)
-HEADERS = $(addprefix $(INCLUDES_DIR)/, mlx_int.h)
+HEADERS = $(addprefix $(INCLUDES_DIR)/, mlx_int.h linked_lists/linked_lists.h)
 
 SRC_DIR = ./srcs
-SRC = $(addprefix $(DIRSRC)/, mlx.c)
+SRC = $(addprefix $(DIRSRC)/, mlx.c \
+linked_lists/ft_lstadd_back.c \
+linked_lists/ft_lstadd_front.c \
+linked_lists/ft_lstclear.c \
+linked_lists/ft_lstcpy.c \
+linked_lists/ft_lstdelone.c \
+linked_lists/ft_lstiter.c \
+linked_lists/ft_lstlast.c \
+linked_lists/ft_lstmap.c \
+linked_lists/ft_lstnew.c \
+linked_lists/ft_lstsize.c \
+linked_lists/ft_lstchr.c)
 
 OBJDIR = obj
 OBJ = $(SRC:$(DIRSRC)/%.c= $(OBJDIR)/%.o)
