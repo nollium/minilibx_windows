@@ -129,6 +129,8 @@ typedef struct	s_sdl_var
 {
 	t_mlx_event	hooks[MLX_MAX_EVENT];
 	t_list		*win_list;
+	int			(*loop_hook)();
+	void		*loop_param;
 }				t_sdl_var;
 
 typedef struct	s_mlx_img
@@ -152,7 +154,7 @@ typedef struct		s_sdl_win
 
 void	*mlx_init(void);
 void	*mlx_new_image(t_sdl_var *mlx_ptr, int width, int height);
-void	*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
+void	*mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title);
 char	*mlx_get_data_addr(t_mlx_img *img_ptr, int *bits_per_pixel,
 							int *size_line, int *endian);
 void	my_mlx_pixel_put(t_mlx_img *data, int x, int y, int color);
@@ -161,5 +163,8 @@ int		mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, t_mlx_img *
 								int x, int y);
 int		mlx_destroy_image(t_sdl_var *mlx_ptr, t_mlx_img *img_ptr);
 int		mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr);
-
+int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
+                 int (*funct)(), void *param);
+int	mlx_loop_hook (t_sdl_var *mlx_ptr, int (*funct_ptr)(), void *param);
+int	mlx_loop (t_sdl_var *mlx_ptr);
 #endif

@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/07/31 21:35:21 by smaccary          #+#    #+#              #
+#    Updated: 2020/07/31 21:35:21 by smaccary         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = test.exe
 
 
@@ -28,7 +40,7 @@ LINKS = -L"$(MLX_DIR)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_m
 all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -Wl,-rpath=$(MLX_DIR)/. $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) $(MLX_LIB)
 	@mkdir -p $(OBJ_PATHS)

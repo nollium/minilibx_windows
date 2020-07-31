@@ -23,24 +23,24 @@
 /*
 void set_img_background(t_sdl_img *img, uint32_t color)
 {
-    int i;
-    uint32_t *text;
+	int i;
+	uint32_t *text;
 
-    i = -1;
-    text = (uint32_t *)img->array;
-    while (++i < img->width * img->height)
-        text[i] = color;
+	i = -1;
+	text = (uint32_t *)img->array;
+	while (++i < img->width * img->height)
+		text[i] = color;
 }*/
 
 void set_img_background(t_data *img, uint32_t color)
 {
-    int i;
-    uint32_t *text;
+	int i;
+	uint32_t *text;
 
-    i = -1;
-    text = (uint32_t *)img->addr;
-    while (++i < img->width * img->height)
-        text[i] = color;
+	i = -1;
+	text = (uint32_t *)img->addr;
+	while (++i < img->width * img->height)
+		text[i] = color;
 }
 
 
@@ -48,7 +48,7 @@ void set_img_background(t_data *img, uint32_t color)
 
 void    test_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char    *dst;
+	char    *dst;
 
 	if (x <= 0 || x >= data->width || y <= 0 || y >= data->height)
 		return ;
@@ -60,39 +60,41 @@ void    test_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void    init_data(t_data *data, void *mlx, int w, int h)
 {
-    data->img = mlx_new_image(mlx, w, h);
-    data->addr = mlx_get_data_addr(data->img, &(data->bits_per_pixel),
-                                 &(data->line_length), &(data->endian));
-    data->width = w;
-    data->height = h;
+	data->img = mlx_new_image(mlx, w, h);
+	data->addr = mlx_get_data_addr(data->img, &(data->bits_per_pixel),
+								 &(data->line_length), &(data->endian));
+	data->width = w;
+	data->height = h;
+}
+
+int loop_handler(t_game *game)
+{
+	uint32_t    rgb[] = {0xFF0000, 0x00FF00, 0x0000FF};
+
+	printf("IN LOOP, ARG ADRESS : %p\n", game);
+	set_img_background(&(game->img), rgb[rand() % 3]);
+	 /*   SDL_PollEvent(&event);
+		if (event.type == SDL_QUIT)
+			quit = 1;*/
+	mlx_put_image_to_window(game->mlx, game->win, (game->img).img, 100, 100);
+	return (0);
 }
 
 int main(int argc, char **argv)
 {
-    int         quit;
+	int         quit;
    // SDL_Event   event;
-    void        *mlx;
-    void        *win;
-    uint32_t    rgb[] = {0xFF0000, 0x00FF00, 0x0000FF};
-    t_data      data;
+	t_game      game;
 
-    (void)argv;
-    (void)argc;
-    quit = 0;
-    mlx = mlx_init();
-    win = mlx_new_window(mlx, WIN_WIDTH, WIN_HEIGHT, "my win");
-    init_data(&data, mlx, 600, 400);
-    while (!quit)
-    {
-
-        set_img_background(&data, rgb[rand() % 3]);
-     /*   SDL_PollEvent(&event);
-        if (event.type == SDL_QUIT)
-            quit = 1;*/
-        mlx_put_image_to_window(mlx, win, data.img, 100, 100);
-    }
-    mlx_destroy_image(mlx, data.img);
-    mlx_destroy_window(mlx, win);
-    //SDL_Quit();
-    return (0);
+	(void)argv;
+	(void)argc;
+	quit = 0;
+	game.mlx = mlx_init();
+	game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "my win");
+	init_data(&(game.img), game.mlx, 600, 400);
+	mlx_loop_hook(game.mlx, loop_handler, &game);
+	mlx_loop(game.mlx);
+	mlx_destroy_image(game.mlx, (game.img).img);
+	mlx_destroy_window(game.mlx, game.win);
+	return (0);
 }

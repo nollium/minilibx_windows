@@ -50,7 +50,7 @@ void    *mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title)
 							 SDL_TEXTUREACCESS_STATIC,
 							 win->width, win->height);
 	win->img = mlx_new_image(mlx_ptr, size_x, size_y);
-	ft_lstadd_front(&(mlx_ptr->win_list));
+	ft_lstadd_front(&(mlx_ptr->win_list), ft_lstnew(win));
 	win->mlx_ptr = mlx_ptr;
 	return (win);
 }
@@ -120,7 +120,7 @@ int	mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr)
 }
 
 int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
-                 int (*funct)(), void *param);
+                 int (*funct)(), void *param)
 {
 	t_sdl_var 	*mlx;
 
@@ -131,7 +131,19 @@ int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
 	return (1);
 }
 
+int	mlx_loop_hook (t_sdl_var *mlx_ptr, int (*funct_ptr)(), void *param)
+{
+	mlx_ptr->loop_hook = funct_ptr;
+	mlx_ptr->loop_param = param;
+	return (1);
+}
+
 int	mlx_loop (t_sdl_var *mlx_ptr)
 {
-	
+	SDL_Event event;
+
+	while (42)
+	{
+		mlx_ptr->loop_hook(mlx_ptr->loop_param);
+	}	
 }

@@ -13,4 +13,12 @@ typedef struct	s_data
 	int			width;
 }				t_data;
 
+typedef struct s_game
+{
+	void	*mlx;
+	void	*win;
+	t_data	img;
+}				t_game;
+
+
 #endif // MAIN_H
