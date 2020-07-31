@@ -18,3 +18,5 @@ Fonctions currently implemented  :
     int  mlx_loop_hook (void  *mlx_ptr, int (*funct_ptr)(), void  *param);
     int  mlx_loop (void  *mlx_ptr);
 
+
+Feel free to contribute to the project by making issues, pull request, or by contacting me directly.
