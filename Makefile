@@ -34,7 +34,7 @@ MLX_DIR = ./minilibx_sdl2
 MLX_LIB = $(MLX_DIR)/$(MLX_BASENAME)
 
 LINKS = -L"$(MLX_DIR)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer \
--lSDL2_ttf  -lmingw32 -lSDL2main $(MLX_DIR)/SDL2.dll -luser32 -lgdi32 -lwinmm -ldxguid
+-lSDL2_ttf  -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid
 
 
 all: $(NAME) $(HEADERS)
