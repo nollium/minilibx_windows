@@ -1,67 +1,60 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/07/31 21:35:21 by smaccary          #+#    #+#              #
-#    Updated: 2020/07/31 21:35:21 by smaccary         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-NAME = test.exe
+NAME = libmlx.a
 
 
 CC = x86_64-w64-mingw32-gcc.exe
 CFLAGS = -Wall -Wextra -g3
 
+
 MAKE = mingw32-make.exe
 
-MLX_BASENAME = libmlx.a
-MLX_DIR = ./minilibx_sdl2
-MLX_LIB = $(MLX_DIR)/$(MLX_BASENAME)
-
-SDL_DIR = $(MLX_DIR)/SDL
+SDL_DIR = ./SDL
+SDL_INCLUDE_DIR = $(SDL_DIR)/include/SDL2
 
 INCLUDES_DIR = ./includes
-INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_DIR)/include/SDL2
-HEADERS = $(addprefix $(INCLUDES_DIR)/, main.h mlx.h)
+INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_INCLUDE_DIR)
+HEADERS = $(addprefix $(INCLUDES_DIR)/, mlx_int.h linked_lists.h)
 
 SRC_DIR = ./srcs
-SRC = $(addprefix $(DIRSRC)/, main.c)
+SRC = $(addprefix $(SRC_DIR)/, mlx.c \
+linked_lists/ft_lstadd_back.c \
+linked_lists/ft_lstadd_front.c \
+linked_lists/ft_lstclear.c \
+linked_lists/ft_lstcpy.c \
+linked_lists/ft_lstdelone.c \
+linked_lists/ft_lstiter.c \
+linked_lists/ft_lstlast.c \
+linked_lists/ft_lstmap.c \
+linked_lists/ft_lstnew.c \
+linked_lists/ft_lstsize.c \
+linked_lists/ft_lstchr.c)
 
 OBJDIR = obj
-OBJ = $(SRC:$(DIRSRC)/%.c= $(OBJDIR)/%.o)
-OBJ_PATHS = $(shell ls -R $(DIRSRC) | grep / | sed 's/://g' | sed 's/src/$(OBJDIR)/g')
+OBJ = $(SRC:$(SRC_DIR)/%.c= $(OBJDIR)/%.o)
+OBJ_PATHS = $(shell ls -R $(SRC_DIR) | grep / | sed 's/://g' | sed 's/srcs/$(OBJDIR)/g')
 
+LINKS = -L"$(SDL_DIR)/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer \
+-lSDL2_ttf  -lmingw32 -lSDL2main -lSDL2.dll -luser32 -lgdi32 -lwinmm -ldxguid \
+"$(SDL_DIR)/lib/libSDL2.a" "$(SDL_DIR)/lib/libSDL2.dll.a" \
+"$(SDL_DIR)/lib/libSDL2_image.a" "$(SDL_DIR)/lib/libSDL2_image.dll.a" \
+"$(SDL_DIR)/lib/libSDL2_mixer.a" "$(SDL_DIR)/lib/libSDL2_mixer.dll.a" \
+"$(SDL_DIR)/lib/libSDL2_test.a" "$(SDL_DIR)/lib/libSDL2_ttf.a" \
+"$(SDL_DIR)/lib/libSDL2_ttf.dll.a"
 
-LINKS = -L"$(MLX_DIR)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer \
--lSDL2_ttf  -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid
-
-
-all: $(OBJ)
-	$(MAKE) -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
+all: $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
+	ar rcs $(NAME) $(OBJ)
+	$(MAKE) all -C test
 
-$(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) $(MLX_LIB)
+$(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@mkdir -p $(OBJ_PATHS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
-$(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
-
 clean:
 	$(RM) $(OBJ) $(OBJBONUS)
-	$(MAKE) clean -C $(MLX_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) fclean -C $(MLX_DIR)
-
 
 re: fclean all	
 
