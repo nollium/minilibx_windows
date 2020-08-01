@@ -18,6 +18,7 @@ Fonctions currently implemented  :
     int  mlx_destroy_window(void  *mlx_ptr, void  *win_ptr);
     int  mlx_loop_hook (void  *mlx_ptr, int (*funct_ptr)(), void  *param);
     int  mlx_loop (void  *mlx_ptr);
+    void    *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
 
 ## INSTALLATION
 You will need Mingw (Minimalist GNU for Windows) tools : 
