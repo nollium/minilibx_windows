@@ -18,8 +18,14 @@ CFLAGS = -Wall -Wextra -g3
 
 MAKE = mingw32-make.exe
 
+MLX_BASENAME = libmlx.a
+MLX_DIR = ./minilibx_sdl2
+MLX_LIB = $(MLX_DIR)/$(MLX_BASENAME)
+
+SDL_DIR = $(MLX_DIR)/SDL
+
 INCLUDES_DIR = ./includes
-INCLUDES = -I$(INCLUDES_DIR)
+INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_DIR)/include/SDL2
 HEADERS = $(addprefix $(INCLUDES_DIR)/, main.h mlx.h)
 
 SRC_DIR = ./srcs
@@ -29,9 +35,6 @@ OBJDIR = obj
 OBJ = $(SRC:$(DIRSRC)/%.c= $(OBJDIR)/%.o)
 OBJ_PATHS = $(shell ls -R $(DIRSRC) | grep / | sed 's/://g' | sed 's/src/$(OBJDIR)/g')
 
-MLX_BASENAME = libmlx.a
-MLX_DIR = ./minilibx_sdl2
-MLX_LIB = $(MLX_DIR)/$(MLX_BASENAME)
 
 LINKS = -L"$(MLX_DIR)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer \
 -lSDL2_ttf  -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid

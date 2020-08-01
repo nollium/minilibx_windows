@@ -27,15 +27,8 @@ void    *mlx_init()
 
 void    *mlx_new_image(t_sdl_var *mlx_ptr, int width, int height)
 {
-	t_mlx_img   *img;
-
 	(void)mlx_ptr;
-	img = calloc(1, sizeof(t_mlx_img));
-	img->array = calloc(width * height, sizeof(uint32_t));
-	img->bits_per_pixel = sizeof(uint32_t);
-	img->height = height;
-	img->width = width;
-	return (img);
+	return (SDL_CreateRGBSurface(0, width, height, BITS_PER_PIXELS, 0, 0, 0, 0));
 }
 
 void    *mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title)
@@ -53,63 +46,72 @@ void    *mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title)
 	win->text = SDL_CreateTexture(win->renderer, SDL_PIXELFORMAT_ARGB8888,
 							 SDL_TEXTUREACCESS_STATIC,
 							 win->width, win->height);
-	win->img = mlx_new_image(mlx_ptr, size_x, size_y);
+	//win->img = mlx_new_image(mlx_ptr, size_x, size_y);
 	ft_lstadd_front(&(mlx_ptr->win_list), ft_lstnew(win));
 	win->mlx_ptr = mlx_ptr;
 	return (win);
 }
 
-char	*mlx_get_data_addr(t_mlx_img *img_ptr, int *bits_per_pixel,
+char	*mlx_get_data_addr(SDL_Surface *img_ptr, int *bits_per_pixel,
 			   int *size_line, int *endian)
 {
-	*bits_per_pixel = img_ptr->bits_per_pixel;
-	*size_line = img_ptr->width;
+	*bits_per_pixel = img_ptr->format->BitsPerPixel;
+	*size_line = img_ptr->w;
 	*endian = 0;
-	return ((char *)img_ptr->array);
+	return ((char *)(img_ptr->pixels));
 }
 
-void    my_mlx_pixel_put(t_mlx_img *data, int x, int y, int color)
+void    my_mlx_pixel_put(SDL_Surface *data, int x, int y, int color)
 {
-	uint32_t    *dst;
+	char    *dst;
 
-	if (x <= 0 || x >= data->width || y <= 0 || y >= data->height)
+	if (x <= 0 || x >= data->w || y <= 0 || y >= data->h)
 		return ;
-	dst = data->array + (y * data->width + x * data->bits_per_pixel / 8);
+	dst = ((char *)data->pixels) + (y * data->w + x * (data->format->BitsPerPixel) / 8);
 	*(unsigned int *)dst = color;
 }
 
-void		draw_text(t_mlx_img *text, t_mlx_img *img, int x0, int y0)
+/*
+** should be unused 
+*/
+
+/*
+void		draw_text(SDL_Surface *text, SDL_Surface *img, int x0, int y0)
 {
 	int	x;
 	int	y;
 
 	x = -1;
-	while (++x < text->width)
+	while (++x < text->w)
 	{
 		y = -1;
-		while (++y < text->height)
+		while (++y < text->h)
 			my_mlx_pixel_put(img, x + x0, y + y0,
-							text->array[text->width * y + x]);
+							((char *)text->pixels)[text->w * y + x * img->format->BitsPerPixel]);
 	}
-}
+}*/
 
-int     mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, t_mlx_img *img_ptr,
+int     mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surface *img_ptr,
 								int x, int y)
 {
+	SDL_Rect rect;
+
 	(void)mlx_ptr;
-	draw_text(img_ptr, win_ptr->img, x, y);
-	SDL_UpdateTexture(win_ptr->text, NULL, win_ptr->img->array, win_ptr->width * sizeof(uint32_t));
+	rect = (SDL_Rect){.w = img_ptr->w, .h = img_ptr->h, .x = x, .y = y};
+	//draw_text(img_ptr, win_ptr->img, x, y);
+	//SDL_CreateTextureFromSurface()
+	SDL_UpdateTexture(win_ptr->text, &rect, img_ptr->pixels,
+					img_ptr->w * img_ptr->format->BytesPerPixel);
 	SDL_RenderClear(win_ptr->renderer);
 	SDL_RenderCopy(win_ptr->renderer, win_ptr->text, NULL, NULL);
 	SDL_RenderPresent(win_ptr->renderer);
 	return (1);
 }
 
-int	mlx_destroy_image(t_sdl_var *mlx_ptr, t_mlx_img *img_ptr)
+int	mlx_destroy_image(t_sdl_var *mlx_ptr, SDL_Surface *img_ptr)
 {
 	(void)mlx_ptr;
-	free(img_ptr->array);
-	free(img_ptr);
+	SDL_FreeSurface(img_ptr);
 	return (1);
 }
 
@@ -118,7 +120,6 @@ int	mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr)
 	SDL_DestroyWindow(win_ptr->win_ptr);
 	SDL_DestroyRenderer(win_ptr->renderer);
 	SDL_DestroyTexture(win_ptr->text);
-	mlx_destroy_image(mlx_ptr, win_ptr->img);
 	ft_lstdelone(ft_lstchr(mlx_ptr->win_list, win_ptr), NULL);
 	return (1);
 }

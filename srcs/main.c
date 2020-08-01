@@ -77,22 +77,23 @@ int loop_handler(t_game *game)
 	 /*   SDL_PollEvent(&event);
 		if (event.type == SDL_QUIT)
 			quit = 1;*/
-	mlx_put_image_to_window(game->mlx, game->win, (game->img).img, 100, 100);
+	mlx_put_image_to_window(game->mlx, game->win, (game->img).img, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	return (0);
 }
-
+#include "SDL.h"
 int main(int argc, char **argv)
 {
 	int         quit;
    // SDL_Event   event;
 	t_game      game;
+	SDL_Surface text;
 
 	(void)argv;
 	(void)argc;
 	quit = 0;
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "my win");
-	init_data(&(game.img), game.mlx, 600, 400);
+	init_data(&(game.img), game.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	mlx_loop_hook(game.mlx, loop_handler, &game);
 	mlx_loop(game.mlx);
 	mlx_destroy_image(game.mlx, (game.img).img);

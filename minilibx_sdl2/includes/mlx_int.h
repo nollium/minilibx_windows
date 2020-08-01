@@ -118,6 +118,8 @@ are reserved in the protocol for errors and replies. */
 
 # define MLX_MAX_EVENT LASTEvent
 
+#define	 BITS_PER_PIXELS 32
+
 typedef struct	s_mlx_event
 {
 	int		mask;
@@ -136,20 +138,19 @@ typedef struct	s_sdl_var
 /*
 ** I should implement that with SDL_Surface instead.. 
 */
-
+/*
 typedef struct	s_mlx_img
 {
 	uint32_t		*array;
 	int				bits_per_pixel;
 	int				width;
 	int				height;
-}					t_mlx_img;
-
+}					SDL_Surface;
+*/
 typedef struct		s_sdl_win
 {
 	t_sdl_var		*mlx_ptr;
 	SDL_Window		*win_ptr;
-	t_mlx_img		*img;
 	SDL_Renderer	*renderer;
 	SDL_Texture		*text;
 	int				width;
@@ -159,13 +160,13 @@ typedef struct		s_sdl_win
 void	*mlx_init(void);
 void	*mlx_new_image(t_sdl_var *mlx_ptr, int width, int height);
 void	*mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title);
-char	*mlx_get_data_addr(t_mlx_img *img_ptr, int *bits_per_pixel,
+char	*mlx_get_data_addr(SDL_Surface *img_ptr, int *bits_per_pixel,
 							int *size_line, int *endian);
-void	my_mlx_pixel_put(t_mlx_img *data, int x, int y, int color);
-void	draw_text(t_mlx_img *text, t_mlx_img *img, int x0, int y0);
-int		mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, t_mlx_img *img_ptr,
+void	my_mlx_pixel_put(SDL_Surface *data, int x, int y, int color);
+void	draw_text(SDL_Surface *text, SDL_Surface *img, int x0, int y0);
+int		mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surface *img_ptr,
 								int x, int y);
-int		mlx_destroy_image(t_sdl_var *mlx_ptr, t_mlx_img *img_ptr);
+int		mlx_destroy_image(t_sdl_var *mlx_ptr, SDL_Surface *img_ptr);
 int		mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr);
 int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
                  int (*funct)(), void *param);
