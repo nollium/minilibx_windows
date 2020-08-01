@@ -72,7 +72,7 @@ int loop_handler(t_game *game)
 {
 	uint32_t    rgb[] = {0xFF0000, 0x00FF00, 0x0000FF};
 
-	printf("IN LOOP, ARG ADRESS : %p\n", game);
+	//printf("IN LOOP, ARG ADRESS : %p\n", game);
 	set_img_background(&(game->img), rgb[rand() % 3]);
 	 /*   SDL_PollEvent(&event);
 		if (event.type == SDL_QUIT)
@@ -80,7 +80,16 @@ int loop_handler(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, (game->img).img, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	return (0);
 }
+
+int	key_handler(int keycode, void *arg)
+{
+	printf("Keycode : %d | arg %p\n", keycode, arg);
+	return (0);
+}
+
 #include "SDL.h"
+#include "X11_events.h"
+
 int main(int argc, char **argv)
 {
 	int         quit;
@@ -96,6 +105,7 @@ int main(int argc, char **argv)
 	init_data(&(game.img), game.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	game.chibi.img = mlx_xpm_file_to_image(game.mlx, "pictures/chibi.xpm", &(game.chibi.width), &(game.chibi.height));
 	mlx_put_image_to_window(game.mlx, game.win, game.chibi.img, 0, 0);
+	mlx_hook(game.win, KeyPress, KeyPressMask, key_handler, NULL);
 	mlx_loop_hook(game.mlx, loop_handler, &game);
 	mlx_loop(game.mlx);
 	mlx_destroy_image(game.mlx, (game.img).img);

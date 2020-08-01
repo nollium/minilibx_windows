@@ -12,18 +12,43 @@
 
 #include "mlx_int.h"
 
+/*
+** Apparently key repeat has to be handled manually with SDL2 
+*/
+
+/*
+int	mlx_do_key_autorepeatoff(void *mlx_ptr);
+{
+	(void)mlx_ptr;
+	SDL_EnableKey
+	return (1);
+}
+
+int	mlx_do_key_autorepeaton(void *mlx_ptr)
+{
+	(void)mlx_ptr;
+	return (1);
+}*/
+
+
+static void	init_X11_events_map(uint32_t *map)
+{
+	map[SDL_KEYDOWN] = KeyPress;
+	map[SDL_KEYUP] = KeyRelease;
+
+	map[SDL_MOUSEBUTTONDOWN] = ButtonPress;
+	map[SDL_MOUSEBUTTONUP] = ButtonRelease;
+}
+
 void    *mlx_init()
 {
 	t_sdl_var   *mlx;
 
 	mlx = calloc(1, sizeof(t_sdl_var));
 	SDL_Init(SDL_INIT_EVERYTHING);
+	init_X11_events_map(mlx->X11_event_map);
 	return (mlx);
 }
-
-/*
-** I should implement that with SDL_Surface instead.. 
-*/
 
 void    *mlx_new_image(t_sdl_var *mlx_ptr, int width, int height)
 {
@@ -166,12 +191,33 @@ int	mlx_loop_hook (t_sdl_var *mlx_ptr, int (*funct_ptr)(), void *param)
 	return (1);
 }
 
+int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param)
+{
+	return (mlx_hook(win_ptr, KeyPress, KeyPressMask, funct_ptr, param));
+}
+
 int	mlx_loop (t_sdl_var *mlx_ptr)
 {
-	SDL_Event event;
+	SDL_Event	sdl_event;
+	t_mlx_event	*mlx_event;
+	int			(*hook)();
 
 	while (42)
 	{
+		while (SDL_PollEvent(&sdl_event))
+		{
+			mlx_event = mlx_ptr->hooks + mlx_ptr->X11_event_map[sdl_event.type];
+			hook = mlx_event->hook;
+			if (hook)
+			{
+				if (SDL_MOUSEBUTTONDOWN <= sdl_event.type && sdl_event.type <= SDL_MOUSEBUTTONUP)
+					hook(sdl_event.button.button, mlx_event->param);
+				else if (SDL_KEYDOWN <= sdl_event.type && sdl_event.type <= SDL_KEYUP)
+					hook((int)sdl_event.key.keysym.sym, mlx_event->param);
+				else
+					hook(mlx_event->param);
+			}
+		}
 		mlx_ptr->loop_hook(mlx_ptr->loop_param);
 	}	
 }

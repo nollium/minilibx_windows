@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_int.h                                          :+:      :+:    :+:   */
+/*   X11_events.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smaccary <smaccary@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/31 17:45:13 by smaccary          #+#    #+#             */
-/*   Updated: 2020/07/31 17:45:13 by smaccary         ###   ########.fr       */
+/*   Created: 2020/08/01 17:43:39 by smaccary          #+#    #+#             */
+/*   Updated: 2020/08/01 17:43:39 by smaccary         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_INT_H
-# define MLX_INT_H
-
-# include "SDL.h"
-# include "SDL_image.h"
-# include "linked_lists.h"
-# include <stdint.h>
-# include <stdlib.h>
+#ifndef X11_EVENTS_H
+# define X11_EVENTS_H
 
 /***************************************************************** 
  * EVENT DEFINITIONS 
  *****************************************************************/
 /* Input Event Masks. Used as event-mask window attribute and as arguments
    to Grab requests.  Not to be confused with event names.  */
-#define NoEventMask			0L
-#define KeyPressMask			(1L<<0)  
+#define NoEventMask			   0L
+#define KeyPressMask			   (1L<<0)  
 #define KeyReleaseMask			(1L<<1)  
 #define ButtonPressMask			(1L<<2)  
 #define ButtonReleaseMask		(1L<<3)  
@@ -116,68 +110,5 @@ are reserved in the protocol for errors and replies. */
 #define Button3Mask		(1<<10)
 #define Button4Mask		(1<<11)
 #define Button5Mask		(1<<12)
-
-# define MLX_MAX_EVENT LASTEvent
-
-#define	 BITS_PER_PIXELS 32
-
-typedef struct	s_mlx_event
-{
-	int		mask;
-	void	*param;
-	int		(*hook)();
-}				t_mlx_event;
-
-typedef struct	s_sdl_var
-{
-	uint32_t	X11_event_map[SDL_LASTEVENT];
-	t_mlx_event	hooks[MLX_MAX_EVENT];
-	t_list		*win_list;
-	int			(*loop_hook)();
-	void		*loop_param;
-}				t_sdl_var;
-
-/*
-** I should implement that with SDL_Surface instead.. 
-*/
-/*
-typedef struct	s_mlx_img
-{
-	uint32_t		*array;
-	int				bits_per_pixel;
-	int				width;
-	int				height;
-}					SDL_Surface;
-*/
-typedef struct		s_sdl_win
-{
-	t_sdl_var		*mlx_ptr;
-	SDL_Window		*win_ptr;
-	SDL_Renderer	*renderer;
-	SDL_Texture		*text;
-	int				width;
-	int				height;
-}					t_sdl_win;
-
-void	*mlx_init(void);
-void	*mlx_new_image(t_sdl_var *mlx_ptr, int width, int height);
-void	*mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title);
-char	*mlx_get_data_addr(SDL_Surface *img_ptr, int *bits_per_pixel,
-							int *size_line, int *endian);
-void	my_mlx_pixel_put(SDL_Surface *data, int x, int y, int color);
-void	draw_text(SDL_Surface *text, SDL_Surface *img, int x0, int y0);
-int		mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surface *img_ptr,
-								int x, int y);
-int		mlx_destroy_image(t_sdl_var *mlx_ptr, SDL_Surface *img_ptr);
-int		mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr);
-
-int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
-                 int (*funct)(), void *param);
-int	mlx_loop_hook (t_sdl_var *mlx_ptr, int (*funct_ptr)(), void *param);
-
-
-int	mlx_loop (t_sdl_var *mlx_ptr);
-
 
 #endif

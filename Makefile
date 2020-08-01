@@ -44,15 +44,15 @@ all: $(OBJ)
 	$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
 
-#$(NAME): $(OBJ)
-#	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) $(MLX_LIB)
 	@mkdir -p $(OBJ_PATHS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
-#$(MLX_LIB):
-#	$(MAKE) -C $(MLX_DIR)
+$(MLX_LIB):
+	$(MAKE) -C $(MLX_DIR)
 
 clean:
 	$(RM) $(OBJ) $(OBJBONUS)
