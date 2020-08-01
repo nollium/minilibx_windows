@@ -36,4 +36,8 @@ You'll need to compile with the following links :
  `-L"$(MLX_DIRECTORY)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid`
 
 
+## EPILEPSY WARNING
+
+The default test displays a rectangle changing colors at every frame which can probably cause you a stroke or something if you are epileptic.
+
 Feel free to contribute to the project by making issues, pull request, or by contacting me directly, any improvements or ideas are much welcome.
