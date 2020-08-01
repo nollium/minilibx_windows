@@ -14,6 +14,7 @@
 # define MLX_INT_H
 
 # include "SDL.h"
+# include "SDL_image.h"
 # include "linked_lists.h"
 # include <stdint.h>
 # include <stdlib.h>

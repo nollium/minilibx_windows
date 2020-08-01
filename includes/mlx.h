@@ -24,8 +24,11 @@ int     mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
                                 int x, int y);
 int		mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 int		mlx_destroy_window(void *mlx_ptr, void *win_ptr);
-int	mlx_hook(void *win_ptr, int x_event, int x_mask,
+int	    mlx_hook(void *win_ptr, int x_event, int x_mask,
                  int (*funct)(), void *param);
-int	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
-int	mlx_loop (void *mlx_ptr);
+int	    mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
+int	    mlx_loop (void *mlx_ptr);
+
+void    *mlx_xpm_file_to_image(void *mlx_ptr, char *filename,
+			                    int *width, int *height);
 #endif

@@ -94,6 +94,8 @@ int main(int argc, char **argv)
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx, WIN_WIDTH, WIN_HEIGHT, "my win");
 	init_data(&(game.img), game.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	game.chibi.img = mlx_xpm_file_to_image(game.mlx, "pictures/chibi.xpm", &(game.chibi.width), &(game.chibi.height));
+	mlx_put_image_to_window(game.mlx, game.win, game.chibi.img, 0, 0);
 	mlx_loop_hook(game.mlx, loop_handler, &game);
 	mlx_loop(game.mlx);
 	mlx_destroy_image(game.mlx, (game.img).img);

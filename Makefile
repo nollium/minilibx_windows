@@ -40,17 +40,19 @@ LINKS = -L"$(MLX_DIR)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_m
 -lSDL2_ttf  -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid
 
 
-all: $(NAME) $(HEADERS)
-
-$(NAME): $(OBJ)
+all: $(OBJ)
+	$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
+
+#$(NAME): $(OBJ)
+#	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(LINKS)
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) $(MLX_LIB)
 	@mkdir -p $(OBJ_PATHS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
-$(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
+#$(MLX_LIB):
+#	$(MAKE) -C $(MLX_DIR)
 
 clean:
 	$(RM) $(OBJ) $(OBJBONUS)

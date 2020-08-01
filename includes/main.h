@@ -18,6 +18,7 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	t_data	img;
+	t_data	chibi;
 }				t_game;
 
 

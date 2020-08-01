@@ -101,7 +101,7 @@ int     mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surf
 	//draw_text(img_ptr, win_ptr->img, x, y);
 	//SDL_CreateTextureFromSurface()
 	SDL_UpdateTexture(win_ptr->text, &rect, img_ptr->pixels,
-					img_ptr->w * img_ptr->format->BytesPerPixel);
+					img_ptr->pitch);
 	SDL_RenderClear(win_ptr->renderer);
 	SDL_RenderCopy(win_ptr->renderer, win_ptr->text, NULL, NULL);
 	SDL_RenderPresent(win_ptr->renderer);
@@ -122,6 +122,29 @@ int	mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr)
 	SDL_DestroyTexture(win_ptr->text);
 	ft_lstdelone(ft_lstchr(mlx_ptr->win_list, win_ptr), NULL);
 	return (1);
+}
+
+SDL_Surface	*mlx_xpm_file_to_image(t_sdl_var *mlx_ptr, char *filename,
+			       int *width, int *height)
+{
+	SDL_RWops	*rwop;
+	SDL_Surface	*src;
+	SDL_Surface	*img;
+	SDL_PixelFormat fmt;
+
+	rwop = SDL_RWFromFile(filename, "rb");
+	src = IMG_LoadXPM_RW(rwop);
+	fmt = (SDL_PixelFormat)
+	{
+		.BitsPerPixel = BITS_PER_PIXELS,
+		.BytesPerPixel = BITS_PER_PIXELS / 8
+	};
+	img = SDL_ConvertSurface(src, &fmt, 0);
+	SDL_FreeRW(rwop);
+	SDL_FreeSurface(src);
+	*width = img->w;
+	*height = img->h;
+	return (img);
 }
 
 int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
