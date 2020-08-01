@@ -18,6 +18,7 @@ Fonctions currently implemented  :
     int  mlx_destroy_window(void  *mlx_ptr, void  *win_ptr);
     int  mlx_loop_hook (void  *mlx_ptr, int (*funct_ptr)(), void  *param);
     int  mlx_loop (void  *mlx_ptr);
+    void    *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
 
 ## INSTALLATION
 You will need Mingw (Minimalist GNU for Windows) tools : 
@@ -29,10 +30,14 @@ Make in the project's root directory will compile the lib and a test executable
 Lib path is `minilibx_sdl2/libmlx.a
 `
 
-You will need to place SDL2.dll next to your executable.
+You will need to place SDL2.dll, SDL2_image.dll next to your executable. (because i still don't understand how to change the path to these fucking dynamic libs (: )
 
 You'll need to compile with the following links :
  `-L"$(MLX_DIRECTORY)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid`
 
+
+## EPILEPSY WARNING
+
+The default test displays a rectangle changing colors at every frame which can probably cause you a stroke or something if you are epileptic.
 
 Feel free to contribute to the project by making issues, pull request, or by contacting me directly, any improvements or ideas are much welcome.
