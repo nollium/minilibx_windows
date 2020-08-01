@@ -25,7 +25,7 @@ MLX_LIB = $(MLX_DIR)/$(MLX_BASENAME)
 SDL_DIR = $(MLX_DIR)/SDL
 
 INCLUDES_DIR = ./includes
-INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_DIR)/include/SDL2 -I$(MLX_DIR)/includes
+INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_DIR)/include/SDL2 -I$(MLX_DIR)/include
 HEADERS = $(addprefix $(INCLUDES_DIR)/, main.h X11_events.h)
 
 SRC_DIR = ./srcs
@@ -33,7 +33,7 @@ SRC = $(addprefix $(DIRSRC)/, main.c)
 
 OBJDIR = obj
 OBJ = $(SRC:$(DIRSRC)/%.c= $(OBJDIR)/%.o)
-OBJ_PATHS = $(shell ls -R $(DIRSRC) | grep / | sed 's/://g' | sed 's/src/$(OBJDIR)/g')
+OBJ_PATHS = $(shell ls -R $(DIRSRC) | grep / | sed 's/://g' | sed 's/srcs/$(OBJDIR)/g')
 
 
 LINKS = -L"$(MLX_DIR)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer \
