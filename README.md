@@ -1,24 +1,42 @@
 
+
 # (WORK IN PROGRESS) SDL2 based minilibx port for Windows
 This port is based on the X11 based minilibx for linux of 42Paris school [https://github.com/42Paris/minilibx-linux/](https://github.com/42Paris/minilibx-linux/)
 
-## THIS PROJECT IS VERY INCOMPLETE  AND PROBABLY BROKEN.
-I don't currently think that I will completely finish it, my current goal is to make a mlx port behaving in the same way that X11 mlx does with code written for the X11 mlx that only uses basic mlx features like keyboard events (like my mandelbrot viewer [https://github.com/Dirty-No/mandelbrot_viewer](https://github.com/Dirty-No/mandelbrot_viewer))
+## THIS NOT AN OFFICIAL PORT, USE AT YOUR OWN RISK
+The Minilibx was originally created by Olivier Crouzet (ol@42), this only a port of his (and other contributors) work for Windows using the Simple DirectMedia Layer 2 library.
 
-Events are not currently implemented, as it's implementation is fundamentally based on X11, but like macOS ports, we can't use X11, making it the hardest and most boring part to port. (but not THAT much)
+The SDL2 is available for [  Microsoft Windows](https://fr.wikipedia.org/wiki/Microsoft_Windows "Microsoft Windows"),  [GNU/Linux](https://fr.wikipedia.org/wiki/GNU/Linux "GNU/Linux"),  [Android](https://fr.wikipedia.org/wiki/Android "Android"),  [macOS](https://fr.wikipedia.org/wiki/MacOS "MacOS"),  [iOS](https://fr.wikipedia.org/wiki/IOS "IOS"),  [FreeBSD](https://fr.wikipedia.org/wiki/FreeBSD "FreeBSD")  and [Haiku](https://fr.wikipedia.org/wiki/Haiku_(syst%C3%A8me_d%27exploitation) "Haiku (système d'exploitation)") so this port should probably be adaptable for all those OS without too much effort. 
+However, I've only tested this for Windows.
+
+My goal when I first started this port was to make a mlx port behaving in the same way that X11 mlx does with code written for the X11 mlx that only uses basic mlx features like keyboard events (like my mandelbrot viewer [https://github.com/Dirty-No/mandelbrot_viewer](https://github.com/Dirty-No/mandelbrot_viewer))
+
+This is now done. My next goal is to implement the features required by my cub3D, which basically are almost all of X11 mlx features + the mlx_mouse_get_pos() function (because it's somehow not implemented for linux even if it's only 1 line of code)
+
+Only keyboard events are currently implemented.
 
 Fonctions currently implemented  :
 
-    void  *mlx_init(void);
-    void  *mlx_new_image(void  *mlx_ptr, int  width, int  height);
-    void  *mlx_new_window(void  *mlx_ptr, int  size_x, int  size_y, char  *title);
-    char  *mlx_get_data_addr(void  *img_ptr, int  *bits_per_pixel, int  *size_line, int  *endian);
-    int  mlx_put_image_to_window(void  *mlx_ptr, void  *win_ptr, void  *img_ptr,int  x, int  y);
-    int  mlx_destroy_image(void  *mlx_ptr, void  *img_ptr);
-    int  mlx_destroy_window(void  *mlx_ptr, void  *win_ptr);
-    int  mlx_loop_hook (void  *mlx_ptr, int (*funct_ptr)(), void  *param);
-    int  mlx_loop (void  *mlx_ptr);
-    void    *mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
+    void    	*mlx_init(void);
+    void    	*mlx_new_image(void *mlx_ptr, int width, int height);
+    char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel,
+    			                int *size_line, int *endian);
+    int		mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
+                                    int x, int y);
+    int		mlx_destroy_image(void *mlx_ptr, void *img_ptr);
+	                                        			                
+    void	*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
+    int		mlx_destroy_window(void *mlx_ptr, void *win_ptr);
+    
+    int		mlx_key_hook (void  *win_ptr, int (*funct_ptr)(), void  *param);
+    int	    	mlx_hook(void *win_ptr, int x_event, int x_mask,
+                     	int (*funct)(), void *param);
+    int	    	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
+    int	    	mlx_loop (void *mlx_ptr);
+    
+    void    	*mlx_xpm_file_to_image(void *mlx_ptr, char *filename, int *width, int *height);
+
+If you are interested in this port but need more features from the original mlx, please make an issue, if you do so hopefully I should be able to implement them pretty quickly.
 
 ## INSTALLATION
 You will need Mingw (Minimalist GNU for Windows) tools : 
