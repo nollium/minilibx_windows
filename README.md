@@ -30,7 +30,7 @@ Make in the project's root directory will compile the lib and a test executable
 Lib path is `minilibx_sdl2/libmlx.a
 `
 
-You will need to place SDL2.dll next to your executable.
+You will need to place SDL2.dll, SDL2_image.dll next to your executable. (because i still don't understand how to change the path to these fucking dynamic libs (: )
 
 You'll need to compile with the following links :
  `-L"$(MLX_DIRECTORY)/SDL/lib" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lmingw32 -lSDL2main -luser32 -lgdi32 -lwinmm -ldxguid`
