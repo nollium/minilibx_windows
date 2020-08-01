@@ -25,8 +25,8 @@ MLX_LIB = $(MLX_DIR)/$(MLX_BASENAME)
 SDL_DIR = $(MLX_DIR)/SDL
 
 INCLUDES_DIR = ./includes
-INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_DIR)/include/SDL2
-HEADERS = $(addprefix $(INCLUDES_DIR)/, main.h mlx.h)
+INCLUDES = -I$(INCLUDES_DIR) -I$(SDL_DIR)/include/SDL2 -I$(MLX_DIR)/includes
+HEADERS = $(addprefix $(INCLUDES_DIR)/, main.h X11_events.h)
 
 SRC_DIR = ./srcs
 SRC = $(addprefix $(DIRSRC)/, main.c)

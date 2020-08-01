@@ -44,9 +44,6 @@ void set_img_background(t_data *img, uint32_t color)
 		text[i] = color;
 }
 
-
-
-
 void    test_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char    *dst;
@@ -56,8 +53,6 @@ void    test_mlx_pixel_put(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->width + x * data->bits_per_pixel / 8);
 	*(unsigned int *)dst = color;
 }
-
-
 
 void    init_data(t_data *data, void *mlx, int w, int h)
 {
@@ -87,6 +82,8 @@ int	key_handler(int keycode, t_game *game)
 
 	increment = CLOCKS_PER_SEC / 60;
 	printf("Keycode : %d\n", keycode);
+	if (keycode == ESC_KEY)
+		exit(0);
 	if (keycode == FORWARD_KEY)
 		game->y -= increment;
 	if (keycode == BACKWARD_KEY)
@@ -95,9 +92,32 @@ int	key_handler(int keycode, t_game *game)
 		game->x += increment;
 	if (keycode == LEFT_KEY)
 		game->x -= increment;
+	if (keycode == C_KEY)
+		mlx_mouse_move(game->mlx, game->win, 0, 0);
 	return (0);
 }
 
+void	check_screen_size(void *mlx_ptr)
+{
+	int	x;
+	int	y;
+	
+	mlx_get_screen_size(mlx_ptr, &x, &y);
+	printf("SCREEN SIZE : W: %d H: %d\n", x, y);
+}
+
+void	mouse_handler(int button, int x, int y, t_game *game)
+{
+	printf("MOUSE BUTTON : %d at x: %d, y:%d\n", button, x, y);
+}
+
+void	hooks(t_game *game)
+{
+	mlx_hook(game->win, KeyPress, KeyPressMask, key_handler, game);
+	mlx_hook(game->win, ButtonPress, ButtonPressMask, key_handler, game);
+	mlx_mouse_hook(game->win, mouse_handler, game);
+	mlx_loop_hook(game->mlx, loop_handler, game);
+}
 
 int main(int argc, char **argv)
 {
@@ -113,8 +133,9 @@ int main(int argc, char **argv)
 	init_data(&(game.img), game.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	game.chibi.img = mlx_xpm_file_to_image(game.mlx, argv[1], &(game.chibi.width), &(game.chibi.height));
 	mlx_put_image_to_window(game.mlx, game.win, game.chibi.img, 0, 0);
-	mlx_hook(game.win, KeyPress, KeyPressMask, key_handler, &game);
-	mlx_loop_hook(game.mlx, loop_handler, &game);
+	hooks(&game);
+	check_screen_size(game.mlx);
+	mlx_do_key_autorepeaton(game.mlx);
 	mlx_loop(game.mlx);
 
 	/* unreachable, like in real mlx */
