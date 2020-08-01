@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.h"
+#include "X11_events.h"
 #include "mlx.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,15 +107,42 @@ void	check_screen_size(void *mlx_ptr)
 	printf("SCREEN SIZE : W: %d H: %d\n", x, y);
 }
 
-void	mouse_handler(int button, int x, int y, t_game *game)
+int	mouse_handler(int button, int x, int y, t_game *game)
 {
+	(void)game;
 	printf("MOUSE BUTTON : %d at x: %d, y:%d\n", button, x, y);
+	return (0);
+}
+
+int	leave(void *arg)
+{
+	(void)arg;
+	printf("EXITING\n");
+	exit(0);
+	return (0);
+}
+
+int	focus_in_handler(void *arg)
+{
+	(void)arg;
+	printf("FOCUS IN\n");
+	return (0);
+}
+
+int	focus_out_handler(void *arg)
+{
+	(void)arg;
+	printf("FOCUS OUT\n");
+	return (0);
 }
 
 void	hooks(t_game *game)
 {
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_handler, game);
 	mlx_hook(game->win, ButtonPress, ButtonPressMask, key_handler, game);
+	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, leave, NULL);
+	mlx_hook(game->win, FocusIn, FocusChangeMask, focus_in_handler, NULL);
+	mlx_hook(game->win, FocusOut, FocusChangeMask, focus_out_handler, NULL);
 	mlx_mouse_hook(game->win, mouse_handler, game);
 	mlx_loop_hook(game->mlx, loop_handler, game);
 }

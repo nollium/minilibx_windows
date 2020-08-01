@@ -130,11 +130,14 @@ typedef struct	s_mlx_event
 
 typedef struct	s_sdl_var
 {
-	uint32_t	X11_event_map[SDL_LASTEVENT];
+	uint32_t	X11_event_map[MLX_MAX_EVENT];
 	t_mlx_event	hooks[MLX_MAX_EVENT];
 	t_list		*win_list;
+	int			autorepeat;
 	int			(*loop_hook)();
 	void		*loop_param;
+	int			(*mouse_hook)();
+	void		*mouse_param;
 }				t_sdl_var;
 
 /*
