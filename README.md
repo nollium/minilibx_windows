@@ -10,6 +10,7 @@ The SDL2 is available for [  Microsoft Windows](https://fr.wikipedia.org/wiki/Mi
 However, I've only tested this for Windows.
 
 My goal when I first started this port was to make a mlx port behaving in the same way that X11 mlx does with code written for the X11 mlx that only uses basic mlx features like keyboard events (like my mandelbrot viewer [https://github.com/Dirty-No/mandelbrot_viewer](https://github.com/Dirty-No/mandelbrot_viewer))
+
 This is now done. My next goal is to implement the features required by my cub3D, which basically are almost all of X11 mlx features + the mlx_mouse_get_pos() function (because it's somehow not implemented for linux even if it's only 1 line of code)
 
 Only keyboard events are currently implemented.
