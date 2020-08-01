@@ -71,7 +71,6 @@ void    *mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title)
 	win->text = SDL_CreateTexture(win->renderer, SDL_PIXELFORMAT_ARGB8888,
 							 SDL_TEXTUREACCESS_STATIC,
 							 win->width, win->height);
-	//win->img = mlx_new_image(mlx_ptr, size_x, size_y);
 	ft_lstadd_front(&(mlx_ptr->win_list), ft_lstnew(win));
 	win->mlx_ptr = mlx_ptr;
 	return (win);
@@ -81,11 +80,12 @@ char	*mlx_get_data_addr(SDL_Surface *img_ptr, int *bits_per_pixel,
 			   int *size_line, int *endian)
 {
 	*bits_per_pixel = img_ptr->format->BitsPerPixel;
-	*size_line = img_ptr->w;
+	*size_line = img_ptr->pitch;
 	*endian = 0;
 	return ((char *)(img_ptr->pixels));
 }
 
+/* should not be used
 void    my_mlx_pixel_put(SDL_Surface *data, int x, int y, int color)
 {
 	char    *dst;
@@ -94,26 +94,6 @@ void    my_mlx_pixel_put(SDL_Surface *data, int x, int y, int color)
 		return ;
 	dst = ((char *)data->pixels) + (y * data->w + x * (data->format->BitsPerPixel) / 8);
 	*(unsigned int *)dst = color;
-}
-
-/*
-** should be unused 
-*/
-
-/*
-void		draw_text(SDL_Surface *text, SDL_Surface *img, int x0, int y0)
-{
-	int	x;
-	int	y;
-
-	x = -1;
-	while (++x < text->w)
-	{
-		y = -1;
-		while (++y < text->h)
-			my_mlx_pixel_put(img, x + x0, y + y0,
-							((char *)text->pixels)[text->w * y + x * img->format->BitsPerPixel]);
-	}
 }*/
 
 int     mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surface *img_ptr,
@@ -123,8 +103,6 @@ int     mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surf
 
 	(void)mlx_ptr;
 	rect = (SDL_Rect){.w = img_ptr->w, .h = img_ptr->h, .x = x, .y = y};
-	//draw_text(img_ptr, win_ptr->img, x, y);
-	//SDL_CreateTextureFromSurface()
 	SDL_UpdateTexture(win_ptr->text, &rect, img_ptr->pixels,
 					img_ptr->pitch);
 	SDL_RenderClear(win_ptr->renderer);

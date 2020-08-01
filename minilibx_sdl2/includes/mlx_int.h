@@ -164,8 +164,6 @@ void	*mlx_new_image(t_sdl_var *mlx_ptr, int width, int height);
 void	*mlx_new_window(t_sdl_var *mlx_ptr, int size_x, int size_y, char *title);
 char	*mlx_get_data_addr(SDL_Surface *img_ptr, int *bits_per_pixel,
 							int *size_line, int *endian);
-void	my_mlx_pixel_put(SDL_Surface *data, int x, int y, int color);
-void	draw_text(SDL_Surface *text, SDL_Surface *img, int x0, int y0);
 int		mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surface *img_ptr,
 								int x, int y);
 int		mlx_destroy_image(t_sdl_var *mlx_ptr, SDL_Surface *img_ptr);
