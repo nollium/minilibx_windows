@@ -13,7 +13,7 @@
 #include "mlx_int.h"
 
 /*
-** Apparently key repeat has to be handled manually with SDL2 
+** Apparently key repeat has to be handled manually with SDL2, so this is not implemented yet
 */
 
 /*
