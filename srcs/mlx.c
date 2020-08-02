@@ -156,7 +156,7 @@ SDL_Surface	*mlx_xpm_file_to_image(t_sdl_var *mlx_ptr, char *filename,
 		return (NULL);
 	if (!(src = IMG_LoadXPM_RW(rwop)))
 	{
-		printf("IMG_Load_RW: %s\n", IMG_GetError());
+		printf("IMG_Load_RW: %s on file %s\n", IMG_GetError(), filename);
 		SDL_FreeRW(rwop);
 		return (NULL);
 	}
