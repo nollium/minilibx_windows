@@ -4,7 +4,7 @@
 This port is based on the X11 based minilibx for linux of 42Paris school [https://github.com/42Paris/minilibx-linux/](https://github.com/42Paris/minilibx-linux/)
 
 ## THIS NOT AN OFFICIAL PORT, USE AT YOUR OWN RISK
-The Minilibx was originally created by Olivier Crouzet (ol@42), this only a port of his (and other contributors) work for Windows using the Simple DirectMedia Layer 2 library.
+The Minilibx was originally created by Olivier Crouzet (ol@42), this only is a port of his (and other contributors) work for Windows using the Simple DirectMedia Layer 2 library.
 
 I am not from 42Paris' staff, I'm only a student.
 
