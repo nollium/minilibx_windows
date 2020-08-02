@@ -23,7 +23,7 @@ int		mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 int		mlx_clear_window(void *mlx_ptr, void *win_ptr);
 
 int		mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y,
-						uint32_t color);
+						int color);
 
 void    *mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
 int		mlx_destroy_window(void *mlx_ptr, void *win_ptr);
