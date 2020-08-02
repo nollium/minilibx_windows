@@ -6,6 +6,8 @@ This port is based on the X11 based minilibx for linux of 42Paris school [https:
 ## THIS NOT AN OFFICIAL PORT, USE AT YOUR OWN RISK
 The Minilibx was originally created by Olivier Crouzet (ol@42), this only a port of his (and other contributors) work for Windows using the Simple DirectMedia Layer 2 library.
 
+I am not from 42Paris' staff, I'm only a student.
+
 The SDL2 is available for [  Microsoft Windows](https://fr.wikipedia.org/wiki/Microsoft_Windows "Microsoft Windows"),  [GNU/Linux](https://fr.wikipedia.org/wiki/GNU/Linux "GNU/Linux"),  [Android](https://fr.wikipedia.org/wiki/Android "Android"),  [macOS](https://fr.wikipedia.org/wiki/MacOS "MacOS"),  [iOS](https://fr.wikipedia.org/wiki/IOS "IOS"),  [FreeBSD](https://fr.wikipedia.org/wiki/FreeBSD "FreeBSD")  and [Haiku](https://fr.wikipedia.org/wiki/Haiku_(syst%C3%A8me_d%27exploitation) "Haiku (système d'exploitation)") so this port should probably be adaptable for all those OS without too much effort. 
 
 However, I've only tested this for Windows.
