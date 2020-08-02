@@ -287,7 +287,7 @@ int	mlx_loop (t_sdl_var *mlx_ptr)
 			{
 				if (SDL_MOUSEBUTTONDOWN <= event_type && event_type <= SDL_MOUSEBUTTONUP)
 				{
-					hook((sdl_event.button.button, sdl_event.button.x,
+					hook(sdl_event.button.button, sdl_event.button.x,
 							sdl_event.button.y, mlx_ptr->mouse_param);
 					if (mlx_ptr->mouse_hook)
 						(mlx_ptr->mouse_hook)(sdl_event.button.button,
