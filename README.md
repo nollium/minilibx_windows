@@ -1,6 +1,6 @@
 
 
-# (WORK IN PROGRESS) SDL2 based minilibx port for Windows
+# SDL2 based minilibx port for Windows
 This port is based on the X11 based minilibx for linux of 42Paris school [https://github.com/42Paris/minilibx-linux/](https://github.com/42Paris/minilibx-linux/)
 
 ## THIS NOT AN OFFICIAL PORT, USE AT YOUR OWN RISK
