@@ -153,7 +153,11 @@ SDL_Surface	*mlx_xpm_file_to_image(t_sdl_var *mlx_ptr, char *filename,
 	(void)mlx_ptr;
 	if(!(rwop = SDL_RWFromFile(filename, "rb")))
 		return (NULL);
-	src = IMG_LoadXPM_RW(rwop);
+	if (!(src = IMG_LoadXPM_RW(rwop)))
+	{
+		SDL_FreeRW(rwop);
+		return (NULL);
+	}
 	fmt = (SDL_PixelFormat)
 	{
 		.BitsPerPixel = BITS_PER_PIXELS,
