@@ -10,6 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+**	This is the header you should include. 
+*/
+
 #ifndef MLX_H
 # define MLX_H
 

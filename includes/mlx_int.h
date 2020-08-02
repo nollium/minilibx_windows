@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+**	Internal settings for this mlx implementation, you should not include this for a "casual" use.
+** 	Feel free to copy the events definitions tho. 
+*/
+
 #ifndef MLX_INT_H
 # define MLX_INT_H
 
@@ -140,18 +145,6 @@ typedef struct	s_sdl_var
 	void		*mouse_param;
 }				t_sdl_var;
 
-/*
-** I should implement that with SDL_Surface instead.. 
-*/
-/*
-typedef struct	s_mlx_img
-{
-	uint32_t		*array;
-	int				bits_per_pixel;
-	int				width;
-	int				height;
-}					SDL_Surface;
-*/
 typedef struct		s_sdl_win
 {
 	t_sdl_var		*mlx_ptr;
@@ -172,13 +165,13 @@ int		mlx_put_image_to_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr, SDL_Surface
 int		mlx_destroy_image(t_sdl_var *mlx_ptr, SDL_Surface *img_ptr);
 int		mlx_destroy_window(t_sdl_var *mlx_ptr, t_sdl_win *win_ptr);
 
-int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-int	mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
+int		mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
+int		mlx_hook(t_sdl_win *win_ptr, int x_event, int x_mask,
                  int (*funct)(), void *param);
-int	mlx_loop_hook (t_sdl_var *mlx_ptr, int (*funct_ptr)(), void *param);
+int		mlx_loop_hook (t_sdl_var *mlx_ptr, int (*funct_ptr)(), void *param);
 
 
-int	mlx_loop (t_sdl_var *mlx_ptr);
+int		mlx_loop (t_sdl_var *mlx_ptr);
 
 
 #endif
