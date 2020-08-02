@@ -154,7 +154,7 @@ SDL_Surface	*mlx_xpm_file_to_image(t_sdl_var *mlx_ptr, char *filename,
 	(void)mlx_ptr;
 	if(!(rwop = SDL_RWFromFile(filename, "rb")))
 		return (NULL);
-	if (!(src = IMG_LoadXPM_RW(rwop)))
+	if (!(src = IMG_Load_RW(rwop, 0)))
 	{
 		printf("IMG_Load_RW: %s on file %s\n", IMG_GetError(), filename);
 		SDL_FreeRW(rwop);
@@ -197,9 +197,10 @@ int	mlx_key_hook(void *win_ptr, int (*funct_ptr)(), void *param)
 	return (mlx_hook(win_ptr, KeyPress, KeyPressMask, funct_ptr, param));
 }
 
-int     mlx_mouse_get_pos(void *win_ptr, int *x, int *y)
+int     mlx_mouse_get_pos(void *mlx_ptr, void *win_ptr, int *x, int *y)
 {
 	(void)win_ptr;
+	(void)mlx_ptr;
 	return (SDL_GetMouseState(x, y));
 }
 
