@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx_int.h"
+#include <stdio.h>
 
 static void	init_X11_events_map(uint32_t *map)
 {
@@ -155,6 +156,7 @@ SDL_Surface	*mlx_xpm_file_to_image(t_sdl_var *mlx_ptr, char *filename,
 		return (NULL);
 	if (!(src = IMG_LoadXPM_RW(rwop)))
 	{
+		printf("IMG_Load_RW: %s\n", IMG_GetError());
 		SDL_FreeRW(rwop);
 		return (NULL);
 	}
