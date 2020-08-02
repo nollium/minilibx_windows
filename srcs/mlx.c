@@ -301,6 +301,7 @@ int	mlx_loop (t_sdl_var *mlx_ptr)
 					hook(mlx_event->param);
 			}
 		}
-		mlx_ptr->loop_hook(mlx_ptr->loop_param);
+		if (mlx_ptr->loop_hook)
+			mlx_ptr->loop_hook(mlx_ptr->loop_param);
 	}	
 }
