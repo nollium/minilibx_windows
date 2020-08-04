@@ -76,7 +76,7 @@ If you are interested in this port but need more features from the original mlx,
 
 ## INSTALLATION
 You will need Mingw (Minimalist GNU for Windows) tools : 
-[http://www.mingw.org/wiki/Install_MinGW](http://www.mingw.org/wiki/Install_MinGW)
+https://osdn.net/projects/mingw/releases/
 (which ports GNU GCC and GNU Make to Windows)
 
 Make in the project's root directory will compile the lib and a test executable
