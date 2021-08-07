@@ -87,7 +87,7 @@ Some .xpm files (like small_gun.xpm from test pictures) can't be parsed by the S
 
 ## EPILEPSY WARNING
 
-The default test displays a rectangle changing colors at every frame which can probably cause you a stroke or something if you are epileptic.
+The default test displays a rectangle changing colors at every frame.
 
 ## CONTACT
 
