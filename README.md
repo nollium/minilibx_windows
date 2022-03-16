@@ -95,5 +95,3 @@ You can contact me at :
 
 smaccary@student.42.fr
 
-smaccary on school's slack/intra
-
